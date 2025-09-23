@@ -12,8 +12,8 @@
 
 
 
-            <!-- Example 1: Responsive Layout with Wrap -->
-            <GroupBox Header="Responsive Layout with Wrap" Margin="0,0,0,20">
+            <!-- Example 1: SpaceAround ,FlexStart -->
+            <GroupBox Header=" SpaceAround ,FlexStart" Margin="0,0,0,20">
                 <Flex:FlexPanel FlexDirection="Row" 
                                 FlexWrap="Wrap" 
                                 JustifyContent="SpaceAround" 
@@ -29,8 +29,8 @@
                 </Flex:FlexPanel>
             </GroupBox>
 
-            <!-- Example 2: Card Layout -->
-            <GroupBox Header="Card Layout" Margin="0,0,0,20">
+            <!-- Example 2: SpaceEvenly,Wrap -->
+            <GroupBox Header="SpaceEvenly,Wrap" Margin="0,0,0,20">
                 <Flex:FlexPanel FlexDirection="Row" 
                                 FlexWrap="Wrap" 
                                 JustifyContent="SpaceEvenly" 
@@ -64,8 +64,8 @@
             </GroupBox>
 
 
-            <!-- Example 3: Basic Row Layout -->
-            <GroupBox Header="Basic Row Layout" Margin="0,0,0,20">
+            <!-- Example 3: SpaceAround,Row,Center -->
+            <GroupBox Header="SpaceAround,Row,Center" Margin="0,0,0,20">
                 <Flex:FlexPanel FlexDirection="Row" 
                                 JustifyContent="SpaceAround" 
                                 AlignItems="Center" 
@@ -77,8 +77,8 @@
                     <Button Content="Button 3" Padding="10,5"/>
                 </Flex:FlexPanel>
             </GroupBox>
-            <!-- Example 4:  Flex Properties -->
-            <GroupBox Header="Advanced Flex Properties" Margin="0,0,0,20">
+            <!-- Example 4:  FlexStart,Stretch,Row,FlexGrow -->
+            <GroupBox Header="FlexStart,Stretch,Row,FlexGrow" Margin="0,0,0,20">
                 <Flex:FlexPanel FlexDirection="Row" 
                                 JustifyContent="FlexStart" 
                                 AlignItems="Stretch" 
@@ -99,8 +99,8 @@
                 </Flex:FlexPanel>
             </GroupBox>
 
-            <!-- Example 5: Column Layout with Flex Grow -->
-            <GroupBox Header="Column Layout with Flex Grow" Margin="0,0,0,20">
+            <!-- Example 5: Column ,FlexStart,FlexGrow -->
+            <GroupBox Header="Column ,FlexStart,FlexGrow" Margin="0,0,0,20">
                 <Flex:FlexPanel FlexDirection="Column" 
                                 JustifyContent="FlexStart" 
                                 AlignItems="Stretch" 
