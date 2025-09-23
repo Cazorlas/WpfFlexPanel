@@ -93,7 +93,7 @@
 
 
 
-## 📊 Browser Support Comparison
+## 📊 CSS Support Comparison
 
 | Feature | FlexPanel | CSS Flexbox |
 |---------|-----------|-------------|
