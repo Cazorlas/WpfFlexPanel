@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfFlexPanel", "WpfFlexPanel\WpfFlexPanel.csproj", "{0AD62AA9-50E1-4912-A525-37F13A174BA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfFlexPanel.Demo", "WpfFlexPanel.Demo\WpfFlexPanel.Demo.csproj", "{C7996155-9C6C-4877-BC84-EE8F95304ADA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AD62AA9-50E1-4912-A525-37F13A174BA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AD62AA9-50E1-4912-A525-37F13A174BA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AD62AA9-50E1-4912-A525-37F13A174BA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AD62AA9-50E1-4912-A525-37F13A174BA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7996155-9C6C-4877-BC84-EE8F95304ADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7996155-9C6C-4877-BC84-EE8F95304ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7996155-9C6C-4877-BC84-EE8F95304ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7996155-9C6C-4877-BC84-EE8F95304ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E00166E-E65F-4E1C-BC9C-E83F60240B42}
+	EndGlobalSection
+EndGlobal
