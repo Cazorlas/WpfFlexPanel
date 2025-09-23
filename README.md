@@ -6,7 +6,7 @@
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)](#)
 [![NuGet](https://img.shields.io/badge/NuGet-Coming%20Soon-orange.svg)](#)
 
-> A high-performance, CSS Flexbox-inspired layout panel for WPF applications. Bringing modern web layout capabilities to desktop development with enterprise-grade reliability.
+>  CSS Flexbox-inspired layout panel for WPF applications. Bringing modern web layout capabilities to desktop development with enterprise-grade reliability.
 
 ## Quick Start
 
