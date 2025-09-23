@@ -91,14 +91,6 @@
   </Flex:FlexPanel>
 ```
 
-## 🤝 Contributing
-
-### Development Setup
-
-1. Clone the repository
-2. Open in Visual Studio 2022 or later
-3. Build the solution
-4. Run tests to ensure everything works
 
 
 ## 📊 Browser Support Comparison
