@@ -5,50 +5,14 @@
         xmlns:Flex="clr-namespace:WpfFlexPanel.Core;assembly=WpfFlexPanel"
         ScrollViewer.CanContentScroll="False"
         MinWidth="280"
-        Title="FlexPanel Demo" Height="800" Width="800">
+        Title="FlexPanel Demo" Height="800" Width="1000">
 
     <ScrollViewer>
         <StackPanel Margin="20">
 
-            <!-- Example 1: Navigation Bar Style -->
-            <GroupBox Header="Navigation Bar Style" Margin="0,0,0,20">
-                <Flex:FlexPanel FlexDirection="Row" 
-                                JustifyContent="SpaceBetween" 
-                                AlignItems="Center" 
-                                Gap="0"
-                                Height="50" 
-                                Background="DarkSlateGray"
-                                Margin="0">
-                    <!-- Logo -->
-                    <TextBlock Text="MyApp" Foreground="White" FontSize="18" FontWeight="Bold" Margin="15,0"/>
 
-                    <!-- Navigation Items -->
-                    <Flex:FlexPanel FlexDirection="Row" Gap="20" Flex:FlexPanel.FlexGrow="1" JustifyContent="Center">
-                        <Button Content="Home" Style="{x:Null}" Background="Transparent" Foreground="White" BorderThickness="0"/>
-                        <Button Content="About" Style="{x:Null}" Background="Transparent" Foreground="White" BorderThickness="0"/>
-                        <Button Content="Contact" Style="{x:Null}" Background="Transparent" Foreground="White" BorderThickness="0"/>
-                    </Flex:FlexPanel>
 
-                    <!-- User Actions -->
-                    <Button Content="Login" Background="CornflowerBlue" Foreground="White" BorderThickness="0" Padding="15,5" Margin="15,0"/>
-                </Flex:FlexPanel>
-            </GroupBox>
-
-            <!-- Example 2: Basic Row Layout -->
-            <GroupBox Header="Basic Row Layout" Margin="0,0,0,20">
-                <Flex:FlexPanel FlexDirection="Row" 
-                                JustifyContent="SpaceAround" 
-                                AlignItems="Center" 
-                                Gap="10"
-                                Height="100" 
-                                Background="LightGray">
-                    <Button Content="Button 1" Padding="10,5"/>
-                    <Button Content="Button 2" Padding="10,5"/>
-                    <Button Content="Button 3" Padding="10,5"/>
-                </Flex:FlexPanel>
-            </GroupBox>
-
-            <!-- Example 3: Responsive Layout with Wrap -->
+            <!-- Example 1: Responsive Layout with Wrap -->
             <GroupBox Header="Responsive Layout with Wrap" Margin="0,0,0,20">
                 <Flex:FlexPanel FlexDirection="Row" 
                                 FlexWrap="Wrap" 
@@ -65,11 +29,11 @@
                 </Flex:FlexPanel>
             </GroupBox>
 
-            <!-- Example 4: Card Layout -->
+            <!-- Example 2: Card Layout -->
             <GroupBox Header="Card Layout" Margin="0,0,0,20">
                 <Flex:FlexPanel FlexDirection="Row" 
                                 FlexWrap="Wrap" 
-                                JustifyContent="SpaceBetween" 
+                                JustifyContent="SpaceEvenly" 
                                 Gap="15"
                                 Background="WhiteSmoke">
 
@@ -99,22 +63,21 @@
                 </Flex:FlexPanel>
             </GroupBox>
 
-            <!-- Example 5: Center Everything -->
-            <GroupBox Header="Center Everything" Margin="0,0,0,20">
+
+            <!-- Example 3: Basic Row Layout -->
+            <GroupBox Header="Basic Row Layout" Margin="0,0,0,20">
                 <Flex:FlexPanel FlexDirection="Row" 
-                                JustifyContent="Center" 
+                                JustifyContent="SpaceAround" 
                                 AlignItems="Center" 
-                                Height="150" 
-                                Background="LightYellow">
-                    <Border Background="Red" Padding="20" CornerRadius="5">
-                        <TextBlock Text="Centered!" Foreground="White" FontWeight="Bold"/>
-                    </Border>
+                                Gap="10"
+                                Height="100" 
+                                Background="LightGray">
+                    <Button Content="Button 1" Padding="10,5"/>
+                    <Button Content="Button 2" Padding="10,5"/>
+                    <Button Content="Button 3" Padding="10,5"/>
                 </Flex:FlexPanel>
             </GroupBox>
-
-
-
-            <!-- Example 6: Advanced Flex Properties -->
+            <!-- Example 4:  Flex Properties -->
             <GroupBox Header="Advanced Flex Properties" Margin="0,0,0,20">
                 <Flex:FlexPanel FlexDirection="Row" 
                                 JustifyContent="FlexStart" 
@@ -136,7 +99,7 @@
                 </Flex:FlexPanel>
             </GroupBox>
 
-            <!-- Example 7: Column Layout with Flex Grow -->
+            <!-- Example 5: Column Layout with Flex Grow -->
             <GroupBox Header="Column Layout with Flex Grow" Margin="0,0,0,20">
                 <Flex:FlexPanel FlexDirection="Column" 
                                 JustifyContent="FlexStart" 
@@ -152,6 +115,8 @@
                     <Button Content="Fixed Height" Height="30"/>
                 </Flex:FlexPanel>
             </GroupBox>
+            
+            
         </StackPanel>
     </ScrollViewer>
 </Window>
