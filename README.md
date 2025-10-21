@@ -4,7 +4,7 @@
 [![WPF](https://img.shields.io/badge/WPF-6.0%2B-purple.svg)](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)](#)
-[![NuGet](https://img.shields.io/badge/NuGet-Coming%20Soon-orange.svg)](#)
+[![NuGet](https://img.shields.io/badge/NuGet-Coming%20Soon-orange.svg)](https://www.nuget.org/packages/WpfFlexPanel/)
 
 >  CSS Flexbox-inspired layout panel for WPF applications. Bringing  web layout capabilities to desktop development.
 
