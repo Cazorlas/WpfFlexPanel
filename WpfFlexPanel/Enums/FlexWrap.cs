@@ -12,5 +12,4 @@ namespace WpfFlexPanel.Enums
         Wrap,
         WrapReverse
     }
-
 }
