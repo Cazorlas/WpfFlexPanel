@@ -2,142 +2,72 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows;
+using System.Windows.Media;
 using WpfFlexPanel.Enums;
 
 namespace WpfFlexPanel.Core
 {
     /// <summary>
     /// A WPF Panel implementation that provides CSS Flexbox-like layout behavior.
-    /// Enhanced version with improved performance and simplified logic.
+    /// Defensive version: null-checks, safer invalidation and exception containment.
     /// </summary>
     [Description("A flexible layout panel that mimics CSS Flexbox behavior")]
     [DefaultProperty(nameof(FlexDirection))]
-    public sealed class FlexPanel : Panel
+    public sealed class FlexPanel : System.Windows.Controls.Panel
     {
         #region Constants
-
         private const double EPSILON = 1e-10;
         private const double DEFAULT_FLEX_SHRINK = 1.0;
         private const double DEFAULT_FLEX_GROW = 0.0;
         private const double DEFAULT_GAP = 0.0;
-
         #endregion
 
         #region Dependency Properties
-
         public static readonly DependencyProperty FlexDirectionProperty =
-            DependencyProperty.Register(
-                nameof(FlexDirection),
-                typeof(FlexDirection),
-                typeof(FlexPanel),
-                new FrameworkPropertyMetadata(
-                    FlexDirection.Row,
-                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
-                    OnLayoutPropertyChanged));
+            DependencyProperty.Register(nameof(FlexDirection), typeof(FlexDirection), typeof(FlexPanel),
+                new FrameworkPropertyMetadata(FlexDirection.Row, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange, OnLayoutPropertyChanged));
 
         public static readonly DependencyProperty JustifyContentProperty =
-            DependencyProperty.Register(
-                nameof(JustifyContent),
-                typeof(JustifyContent),
-                typeof(FlexPanel),
-                new FrameworkPropertyMetadata(
-                    JustifyContent.FlexStart,
-                    FrameworkPropertyMetadataOptions.AffectsArrange,
-                    OnLayoutPropertyChanged));
+            DependencyProperty.Register(nameof(JustifyContent), typeof(JustifyContent), typeof(FlexPanel),
+                new FrameworkPropertyMetadata(JustifyContent.FlexStart, FrameworkPropertyMetadataOptions.AffectsArrange, OnLayoutPropertyChanged));
 
         public static readonly DependencyProperty AlignItemsProperty =
-            DependencyProperty.Register(
-                nameof(AlignItems),
-                typeof(AlignItems),
-                typeof(FlexPanel),
-                new FrameworkPropertyMetadata(
-                    AlignItems.Stretch,
-                    FrameworkPropertyMetadataOptions.AffectsArrange,
-                    OnLayoutPropertyChanged));
+            DependencyProperty.Register(nameof(AlignItems), typeof(AlignItems), typeof(FlexPanel),
+                new FrameworkPropertyMetadata(AlignItems.Stretch, FrameworkPropertyMetadataOptions.AffectsArrange, OnLayoutPropertyChanged));
 
         public static readonly DependencyProperty FlexWrapProperty =
-            DependencyProperty.Register(
-                nameof(FlexWrap),
-                typeof(FlexWrap),
-                typeof(FlexPanel),
-                new FrameworkPropertyMetadata(
-                    FlexWrap.NoWrap,
-                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
-                    OnLayoutPropertyChanged));
+            DependencyProperty.Register(nameof(FlexWrap), typeof(FlexWrap), typeof(FlexPanel),
+                new FrameworkPropertyMetadata(FlexWrap.NoWrap, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange, OnLayoutPropertyChanged));
 
         public static readonly DependencyProperty GapProperty =
-            DependencyProperty.Register(
-                nameof(Gap),
-                typeof(double),
-                typeof(FlexPanel),
-                new FrameworkPropertyMetadata(
-                    DEFAULT_GAP,
-                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
-                    OnLayoutPropertyChanged));
-
+            DependencyProperty.Register(nameof(Gap), typeof(double), typeof(FlexPanel),
+                new FrameworkPropertyMetadata(DEFAULT_GAP, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange, OnLayoutPropertyChanged));
         #endregion
 
         #region Attached Properties
-
         public static readonly DependencyProperty FlexGrowProperty =
-            DependencyProperty.RegisterAttached(
-                "FlexGrow",
-                typeof(double),
-                typeof(FlexPanel),
-                new FrameworkPropertyMetadata(
-                    DEFAULT_FLEX_GROW,
-                    FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange,
-                    OnChildPropertyChanged));
+            DependencyProperty.RegisterAttached("FlexGrow", typeof(double), typeof(FlexPanel),
+                new FrameworkPropertyMetadata(DEFAULT_FLEX_GROW, FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange, OnChildPropertyChanged));
 
         public static readonly DependencyProperty FlexShrinkProperty =
-            DependencyProperty.RegisterAttached(
-                "FlexShrink",
-                typeof(double),
-                typeof(FlexPanel),
-                new FrameworkPropertyMetadata(
-                    DEFAULT_FLEX_SHRINK,
-                    FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange,
-                    OnChildPropertyChanged));
+            DependencyProperty.RegisterAttached("FlexShrink", typeof(double), typeof(FlexPanel),
+                new FrameworkPropertyMetadata(DEFAULT_FLEX_SHRINK, FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange, OnChildPropertyChanged));
 
         public static readonly DependencyProperty FlexBasisProperty =
-            DependencyProperty.RegisterAttached(
-                "FlexBasis",
-                typeof(double),
-                typeof(FlexPanel),
-                new FrameworkPropertyMetadata(
-                    double.NaN,
-                    FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange,
-                    OnChildPropertyChanged));
+            DependencyProperty.RegisterAttached("FlexBasis", typeof(double), typeof(FlexPanel),
+                new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange, OnChildPropertyChanged));
 
         public static readonly DependencyProperty AlignSelfProperty =
-            DependencyProperty.RegisterAttached(
-                "AlignSelf",
-                typeof(AlignItems?),
-                typeof(FlexPanel),
-                new FrameworkPropertyMetadata(
-                    null,
-                    FrameworkPropertyMetadataOptions.AffectsParentArrange,
-                    OnChildPropertyChanged));
+            DependencyProperty.RegisterAttached("AlignSelf", typeof(AlignItems?), typeof(FlexPanel),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsParentArrange, OnChildPropertyChanged));
 
         public static readonly DependencyProperty OrderProperty =
-            DependencyProperty.RegisterAttached(
-                "Order",
-                typeof(int),
-                typeof(FlexPanel),
-                new FrameworkPropertyMetadata(
-                    0,
-                    FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange,
-                    OnChildPropertyChanged));
-
+            DependencyProperty.RegisterAttached("Order", typeof(int), typeof(FlexPanel),
+                new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange, OnChildPropertyChanged));
         #endregion
 
         #region Properties
-
         [Category("Layout")]
         public FlexDirection FlexDirection
         {
@@ -172,10 +102,6 @@ namespace WpfFlexPanel.Core
             get => (double)GetValue(GapProperty);
             set => SetValue(GapProperty, value);
         }
-
-
-
-
         #endregion
 
         #region Attached Property Accessors
@@ -198,51 +124,72 @@ namespace WpfFlexPanel.Core
         #region Layout Overrides
         protected override Size MeasureOverride(Size availableSize)
         {
-            var children = GetVisibleOrderedChildren();
-            if (!children.Any()) return new Size();
+            try
+            {
+                var children = GetVisibleOrderedChildren();
+                if (children == null || !children.Any()) return new Size();
 
-            // Measure all children with infinite constraints first
-            var infiniteSize = new Size(double.PositiveInfinity, double.PositiveInfinity);
-            foreach (var child in children)
-                child.Measure(infiniteSize);
+                // Measure all children with infinite constraints first
+                var infiniteSize = new Size(double.PositiveInfinity, double.PositiveInfinity);
+                foreach (var child in children)
+                {
+                    if (child == null) continue;
+                    try { child.Measure(infiniteSize); } catch { /* swallow measure error per-child */ }
+                }
 
-            return CanWrap
-                ? MeasureWithWrapping(availableSize, children)
-                : MeasureWithoutWrapping(children);
+                return CanWrap ? MeasureWithWrapping(availableSize, children) : MeasureWithoutWrapping(children);
+            }
+            catch
+            {
+                // defensive fallback to avoid host crash
+                return new Size();
+            }
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            var children = GetVisibleOrderedChildren();
-            if (!children.Any()) return finalSize;
+            try
+            {
+                var children = GetVisibleOrderedChildren();
+                if (children == null || !children.Any()) return finalSize;
 
-            if (CanWrap)
-                ArrangeWithWrapping(finalSize, children);
-            else
-                ArrangeWithoutWrapping(finalSize, children);
+                if (CanWrap) ArrangeWithWrapping(finalSize, children);
+                else ArrangeWithoutWrapping(finalSize, children);
 
-            return finalSize;
+                return finalSize;
+            }
+            catch
+            {
+                // defensive: if something unexpected happens, return finalSize so host doesn't crash
+                return finalSize;
+            }
         }
-
         #endregion
 
         #region Core Layout Logic
-
         private List<UIElement> GetVisibleOrderedChildren()
         {
-            return Children.Cast<UIElement>()
-                .Where(child => child.Visibility != Visibility.Collapsed)
-                .OrderBy(GetOrder)
-                .ThenBy(child => Children.IndexOf(child))
-                .ToList();
+            try
+            {
+                // safe enumeration + null checks
+                return Children
+                    .OfType<UIElement>()
+                    .Where(child => child != null && child.Visibility != Visibility.Collapsed)
+                    .OrderBy(GetOrder)
+                    .ThenBy(child => Children.IndexOf(child))
+                    .ToList();
+            }
+            catch
+            {
+                return new List<UIElement>();
+            }
         }
 
         private Size MeasureWithoutWrapping(List<UIElement> children)
         {
             var layoutData = CreateLayoutData(children);
-            return IsHorizontal
-                ? new Size(layoutData.TotalMainSize, layoutData.MaxCrossSize)
-                : new Size(layoutData.MaxCrossSize, layoutData.TotalMainSize);
+            return IsHorizontal ? new Size(layoutData.TotalMainSize, layoutData.MaxCrossSize)
+                                : new Size(layoutData.MaxCrossSize, layoutData.TotalMainSize);
         }
 
         private Size MeasureWithWrapping(Size availableSize, List<UIElement> children)
@@ -253,18 +200,16 @@ namespace WpfFlexPanel.Core
 
             foreach (var line in lines)
             {
+                if (line == null || line.Count == 0) continue;
                 var layoutData = CreateLayoutData(line);
                 maxMainSize = Math.Max(maxMainSize, layoutData.TotalMainSize);
                 totalCrossSize += layoutData.MaxCrossSize;
             }
 
             // Add gaps between lines
-            if (lines.Count > 1)
-                totalCrossSize += Gap * (lines.Count - 1);
+            if (lines.Count > 1) totalCrossSize += Gap * (lines.Count - 1);
 
-            return IsHorizontal
-                ? new Size(maxMainSize, totalCrossSize)
-                : new Size(totalCrossSize, maxMainSize);
+            return IsHorizontal ? new Size(maxMainSize, totalCrossSize) : new Size(totalCrossSize, maxMainSize);
         }
 
         private void ArrangeWithoutWrapping(Size containerSize, List<UIElement> children)
@@ -281,22 +226,23 @@ namespace WpfFlexPanel.Core
 
             foreach (var line in lines)
             {
+                if (line == null || line.Count == 0) continue;
                 var flexItems = CreateFlexItems(line);
                 ResolveFlexSizes(flexItems, GetMainSize(containerSize));
 
-                double lineCrossSize = line.Max(child => GetCrossSize(child.DesiredSize));
+                double lineCrossSize = line.Max(child => GetCrossSize(child?.DesiredSize ?? new Size()));
                 ArrangeFlexLine(flexItems, containerSize, crossOffset);
 
                 crossOffset += lineCrossSize + Gap;
             }
         }
-
         #endregion
 
-        #region  Helper Methods
+        #region Helper Methods
         private bool IsHorizontal => FlexDirection == FlexDirection.Row || FlexDirection == FlexDirection.RowReverse;
         private bool IsReversed => FlexDirection == FlexDirection.RowReverse || FlexDirection == FlexDirection.ColumnReverse;
         private bool CanWrap => FlexWrap != FlexWrap.NoWrap;
+
         private LayoutData CreateLayoutData(List<UIElement> children)
         {
             double totalMainSize = 0;
@@ -305,6 +251,8 @@ namespace WpfFlexPanel.Core
             for (int i = 0; i < children.Count; i++)
             {
                 var child = children[i];
+                if (child == null) continue;
+
                 var mainSize = GetMainSize(child.DesiredSize);
                 var crossSize = GetCrossSize(child.DesiredSize);
 
@@ -319,37 +267,39 @@ namespace WpfFlexPanel.Core
 
         private List<FlexItem> CreateFlexItems(List<UIElement> children)
         {
-            return children.Select(child =>
+            var list = new List<FlexItem>();
+            foreach (var child in children)
             {
+                if (child == null) continue;
                 var desiredSize = child.DesiredSize;
                 var mainSize = GetMainSize(desiredSize);
                 var flexBasis = GetFlexBasis(child);
 
-                return new FlexItem
+                var item = new FlexItem
                 {
                     Element = child,
                     FlexBasis = double.IsNaN(flexBasis) ? mainSize : flexBasis,
-                    FlexGrow = Math.Max(0, GetFlexGrow(child)), // Ensure non-negative
-                    FlexShrink = Math.Max(0, GetFlexShrink(child)), // Ensure non-negative
+                    FlexGrow = Math.Max(0, GetFlexGrow(child)),
+                    FlexShrink = Math.Max(0, GetFlexShrink(child)),
                     CrossSize = GetCrossSize(desiredSize),
                     FinalMainSize = double.IsNaN(flexBasis) ? mainSize : flexBasis
                 };
-            }).ToList();
+                list.Add(item);
+            }
+            return list;
         }
 
         private void ResolveFlexSizes(List<FlexItem> items, double containerSize)
         {
-            if (!items.Any()) return;
+            if (items == null || items.Count == 0) return;
 
             double usedSpace = items.Sum(item => item.FlexBasis) + Gap * (items.Count - 1);
             double remainingSpace = containerSize - usedSpace;
 
             if (Math.Abs(remainingSpace) < EPSILON) return;
 
-            if (remainingSpace > 0)
-                DistributeExtraSpace(items, remainingSpace);
-            else
-                HandleOverflow(items, Math.Abs(remainingSpace));
+            if (remainingSpace > 0) DistributeExtraSpace(items, remainingSpace);
+            else HandleOverflow(items, Math.Abs(remainingSpace));
         }
 
         private void DistributeExtraSpace(List<FlexItem> items, double extraSpace)
@@ -379,7 +329,7 @@ namespace WpfFlexPanel.Core
 
         private void ArrangeFlexLine(List<FlexItem> items, Size containerSize, double crossOffset)
         {
-            if (!items.Any()) return;
+            if (items == null || items.Count == 0) return;
 
             double containerMainSize = GetMainSize(containerSize);
             double containerCrossSize = GetCrossSize(containerSize);
@@ -389,15 +339,24 @@ namespace WpfFlexPanel.Core
 
             foreach (var item in items)
             {
+                if (item == null || item.Element == null) continue;
+
                 var alignment = GetAlignSelf(item.Element) ?? AlignItems;
                 double crossPosition = CalculateCrossPosition(alignment, containerCrossSize, item.CrossSize) + crossOffset;
 
                 var rect = CreateRect(currentOffset, crossPosition, item, containerCrossSize, alignment);
 
-                if (IsReversed)
-                    rect = ApplyReverse(rect, containerSize);
+                if (IsReversed) rect = ApplyReverse(rect, containerSize);
 
-                item.Element.Arrange(rect);
+                try
+                {
+                    item.Element.Arrange(rect);
+                }
+                catch
+                {
+                    // swallow per-item arrange exceptions to avoid breaking host
+                }
+
                 currentOffset += item.FinalMainSize + Gap + justification.spacing;
             }
         }
@@ -407,15 +366,16 @@ namespace WpfFlexPanel.Core
             var lines = new List<List<UIElement>>();
             var currentLine = new List<UIElement>();
             double currentLineSize = 0;
+            bool hasFinite = !double.IsInfinity(availableMainSize) && availableMainSize > 0;
 
             foreach (var child in children)
             {
-                double childMainSize = GetMainSize(child.DesiredSize);
-                double requiredSize = currentLineSize + (currentLine.Any() ? Gap : 0) + childMainSize;
+                if (child == null) continue;
 
-                bool shouldWrap = currentLine.Any() &&
-                                 !double.IsInfinity(availableMainSize) &&
-                                 requiredSize > availableMainSize;
+                double childMainSize = GetMainSize(child.DesiredSize);
+                double requiredSize = currentLine.Any() ? currentLineSize + Gap + childMainSize : childMainSize;
+
+                bool shouldWrap = currentLine.Any() && hasFinite && requiredSize > availableMainSize;
 
                 if (shouldWrap)
                 {
@@ -430,14 +390,10 @@ namespace WpfFlexPanel.Core
                 }
             }
 
-            if (currentLine.Any())
-                lines.Add(currentLine);
+            if (currentLine.Any()) lines.Add(currentLine);
 
-            return FlexWrap == FlexWrap.WrapReverse
-                ? lines.AsEnumerable().Reverse().ToList()
-                : lines;
+            return FlexWrap == FlexWrap.WrapReverse ? lines.AsEnumerable().Reverse().ToList() : lines;
         }
-
         #endregion
 
         #region Utility Methods
@@ -446,30 +402,23 @@ namespace WpfFlexPanel.Core
 
         private (double initialOffset, double spacing) CalculateJustification(List<FlexItem> items, double containerSize)
         {
+            if (items == null || items.Count == 0) return (0, 0);
+
             double usedSpace = items.Sum(i => i.FinalMainSize) + Gap * (items.Count - 1);
-            double freeSpace = containerSize - usedSpace;
+            double freeSpace = Math.Max(0, containerSize - usedSpace);
 
             switch (JustifyContent)
             {
-                case JustifyContent.FlexEnd:
-                    return (freeSpace, 0);
-
-                case JustifyContent.Center:
-                    return (freeSpace / 2, 0);
-
+                case JustifyContent.FlexEnd: return (freeSpace, 0);
+                case JustifyContent.Center: return (freeSpace / 2, 0);
                 case JustifyContent.SpaceBetween:
-                    if (items.Count > 1)
-                        return (0, freeSpace / (items.Count - 1));
+                    if (items.Count > 1) return (0, freeSpace / (items.Count - 1));
                     break;
-
                 case JustifyContent.SpaceAround:
-                    if (items.Count > 0)
-                        return (freeSpace / (2 * items.Count), freeSpace / items.Count);
+                    if (items.Count > 0) return (freeSpace / (2 * items.Count), freeSpace / items.Count);
                     break;
-
                 case JustifyContent.SpaceEvenly:
-                    if (items.Count > 0)
-                        return (freeSpace / (items.Count + 1), freeSpace / (items.Count + 1));
+                    if (items.Count > 0) return (freeSpace / (items.Count + 1), freeSpace / (items.Count + 1));
                     break;
             }
 
@@ -480,17 +429,10 @@ namespace WpfFlexPanel.Core
         {
             switch (alignment)
             {
-                case AlignItems.FlexEnd:
-                    return containerSize - itemSize;
-
-                case AlignItems.Center:
-                    return (containerSize - itemSize) / 2;
-
-                case AlignItems.Stretch:
-                    return 0;
-
-                default: // FlexStart and others
-                    return 0;
+                case AlignItems.FlexEnd: return containerSize - itemSize;
+                case AlignItems.Center: return (containerSize - itemSize) / 2;
+                case AlignItems.Stretch: return 0;
+                default: return 0;
             }
         }
 
@@ -499,56 +441,60 @@ namespace WpfFlexPanel.Core
             double mainSize = item.FinalMainSize;
             double crossSize = alignment == AlignItems.Stretch ? containerCrossSize : item.CrossSize;
 
-            return IsHorizontal
-                ? new Rect(mainOffset, crossOffset, mainSize, crossSize)
-                : new Rect(crossOffset, mainOffset, crossSize, mainSize);
-        }
-        private Rect ApplyReverse(Rect rect, Size containerSize)
-        {
-            return IsHorizontal
-                ? new Rect(containerSize.Width - rect.Right, rect.Y, rect.Width, rect.Height)
-                : new Rect(rect.X, containerSize.Height - rect.Bottom, rect.Width, rect.Height);
+            return IsHorizontal ? new Rect(mainOffset, crossOffset, mainSize, crossSize) : new Rect(crossOffset, mainOffset, crossSize, mainSize);
         }
 
+        private Rect ApplyReverse(Rect rect, Size containerSize)
+        {
+            return IsHorizontal ? new Rect(containerSize.Width - rect.Right, rect.Y, rect.Width, rect.Height)
+                                : new Rect(rect.X, containerSize.Height - rect.Bottom, rect.Width, rect.Height);
+        }
         #endregion
 
         #region Event Handlers
-
         private static void OnLayoutPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((FlexPanel)d)?.InvalidateVisual();
+            if (d is FlexPanel panel)
+            {
+                // use layout invalidation (measure/arrange) - safer for layout changes
+                panel.InvalidateMeasure();
+                panel.InvalidateArrange();
+            }
         }
 
         private static void OnChildPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (VisualTreeHelper.GetParent(d) is FlexPanel panel)
-                panel.InvalidateVisual();
+            try
+            {
+                if (d == null) return;
+                var parent = VisualTreeHelper.GetParent(d);
+                if (parent is FlexPanel panel)
+                {
+                    panel.InvalidateMeasure();
+                    panel.InvalidateArrange();
+                }
+            }
+            catch
+            {
+                // swallow: defensive
+            }
         }
-
         #endregion
 
         #region Supporting Types
-
-        private struct LayoutData
-        {
-            public double TotalMainSize;
-            public double MaxCrossSize;
-        }
+        private struct LayoutData { public double TotalMainSize; public double MaxCrossSize; }
 
         private class FlexItem
         {
-            public UIElement Element { get; set; }
+            public UIElement Element { get; set; } = null!;
             public double FlexBasis { get; set; }
             public double FlexGrow { get; set; }
             public double FlexShrink { get; set; }
             public double CrossSize { get; set; }
             public double FinalMainSize { get; set; }
             public bool IsFlexible => FlexGrow > EPSILON || FlexShrink > EPSILON;
-            public override string ToString() =>
-                $"FlexItem: Basis={FlexBasis:F1}, Grow={FlexGrow:F1}, Final={FinalMainSize:F1}";
+            public override string ToString() => $"FlexItem: Basis={FlexBasis:F1}, Grow={FlexGrow:F1}, Final={FinalMainSize:F1}";
         }
-
         #endregion
-
     }
 }

@@ -1,122 +1,183 @@
-﻿<Window x:Class="WpfFlexPanel.Demo.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:WpfFlexPanel.Demo"
-        xmlns:Flex="clr-namespace:WpfFlexPanel.Core;assembly=WpfFlexPanel"
-        ScrollViewer.CanContentScroll="False"
-        MinWidth="280"
-        Title="FlexPanel Demo" Height="800" Width="1000">
+﻿<Window
+    x:Class="WpfFlexPanel.Demo.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Flex="clr-namespace:WpfFlexPanel.Core;assembly=WpfFlexPanel"
+    xmlns:local="clr-namespace:WpfFlexPanel.Demo"
+    Title="FlexPanel Demo"
+    Width="1000"
+    Height="800"
+    MinWidth="280"
+    ScrollViewer.CanContentScroll="False">
 
     <ScrollViewer>
         <StackPanel Margin="20">
 
-
-
-            <!-- Example 1: SpaceAround ,FlexStart -->
-            <GroupBox Header=" SpaceAround ,FlexStart" Margin="0,0,0,20">
-                <Flex:FlexPanel FlexDirection="Row" 
-                                FlexWrap="Wrap" 
-                                JustifyContent="SpaceAround" 
-                                AlignItems="FlexStart" 
-                                Gap="10"
-                                Background="LightGreen">
-                    <Button Content="Item 1" Width="120" Height="40"/>
-                    <Button Content="Item 2" Width="120" Height="60"/>
-                    <Button Content="Item 3" Width="120" Height="40"/>
-                    <Button Content="Item 4" Width="120" Height="50"/>
-                    <Button Content="Item 5" Width="120" Height="40"/>
-                    <Button Content="Item 6" Width="120" Height="70"/>
+            <!--  Example 1: SpaceAround ,FlexStart  -->
+            <GroupBox Margin="0,0,0,20" Header=" SpaceAround ,FlexStart">
+                <Flex:FlexPanel
+                    AlignItems="FlexStart"
+                    Background="LightGreen"
+                    FlexDirection="Row"
+                    FlexWrap="Wrap"
+                    Gap="10"
+                    JustifyContent="SpaceAround">
+                    <Button
+                        Width="120"
+                        Height="40"
+                        Content="Item 1" />
+                    <Button
+                        Width="120"
+                        Height="60"
+                        Content="Item 2" />
+                    <Button
+                        Width="120"
+                        Height="40"
+                        Content="Item 3" />
+                    <Button
+                        Width="120"
+                        Height="50"
+                        Content="Item 4" />
+                    <Button
+                        Width="120"
+                        Height="40"
+                        Content="Item 5" />
+                    <Button
+                        Width="120"
+                        Height="70"
+                        Content="Item 6" />
                 </Flex:FlexPanel>
             </GroupBox>
 
-            <!-- Example 2: SpaceEvenly,Wrap -->
-            <GroupBox Header="SpaceEvenly,Wrap" Margin="0,0,0,20">
-                <Flex:FlexPanel FlexDirection="Row" 
-                                FlexWrap="Wrap" 
-                                JustifyContent="SpaceEvenly" 
-                                Gap="15"
-                                Background="WhiteSmoke">
+            <!--  Example 2: SpaceEvenly,Wrap  -->
+            <GroupBox Margin="0,0,0,20" Header="SpaceEvenly,Wrap">
+                <Flex:FlexPanel
+                    Background="WhiteSmoke"
+                    FlexDirection="Row"
+                    FlexWrap="Wrap"
+                    Gap="15"
+                    JustifyContent="SpaceEvenly">
 
-                    <Border Background="White" BorderBrush="LightGray" BorderThickness="1" CornerRadius="8" 
-                            Flex:FlexPanel.FlexBasis="200"  VerticalAlignment="Top"   Padding="15">
+                    <Border
+                        Padding="15"
+                        VerticalAlignment="Top"
+                        Flex:FlexPanel.FlexBasis="200"
+                        Background="White"
+                        BorderBrush="LightGray"
+                        BorderThickness="1"
+                        CornerRadius="8">
                         <StackPanel>
-                            <TextBlock Text="Card 1" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
-                            <TextBlock Text="flexible card " TextWrapping="Wrap"/>
+                            <TextBlock
+                                Margin="0,0,0,10"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="Card 1" />
+                            <TextBlock Text="flexible card " TextWrapping="Wrap" />
                         </StackPanel>
                     </Border>
 
-                    <Border Background="White" BorderBrush="LightGray" BorderThickness="1" CornerRadius="8" 
-                            Flex:FlexPanel.FlexBasis="200" Padding="15" VerticalAlignment="Top" >
+                    <Border
+                        Padding="15"
+                        VerticalAlignment="Top"
+                        Flex:FlexPanel.FlexBasis="200"
+                        Background="White"
+                        BorderBrush="LightGray"
+                        BorderThickness="1"
+                        CornerRadius="8">
                         <StackPanel>
-                            <TextBlock Text="Card 2" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
-                            <TextBlock Text="Another flexible card " TextWrapping="Wrap"/>
+                            <TextBlock
+                                Margin="0,0,0,10"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="Card 2" />
+                            <TextBlock Text="Another flexible card " TextWrapping="Wrap" />
                         </StackPanel>
                     </Border>
 
-                    <Border Background="White" BorderBrush="LightGray" BorderThickness="1" CornerRadius="8" 
-                            Flex:FlexPanel.FlexBasis="200" Padding="15" VerticalAlignment="Top" >
+                    <Border
+                        Padding="15"
+                        VerticalAlignment="Top"
+                        Flex:FlexPanel.FlexBasis="200"
+                        Background="White"
+                        BorderBrush="LightGray"
+                        BorderThickness="1"
+                        CornerRadius="8">
                         <StackPanel>
-                            <TextBlock Text="Card 3" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
-                            <TextBlock Text="Another flexible card" TextWrapping="Wrap"/>
+                            <TextBlock
+                                Margin="0,0,0,10"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="Card 3" />
+                            <TextBlock Text="Another flexible card" TextWrapping="Wrap" />
                         </StackPanel>
                     </Border>
                 </Flex:FlexPanel>
             </GroupBox>
 
 
-            <!-- Example 3: SpaceAround,Row,Center -->
-            <GroupBox Header="SpaceAround,Row,Center" Margin="0,0,0,20">
-                <Flex:FlexPanel FlexDirection="Row" 
-                                JustifyContent="SpaceAround" 
-                                AlignItems="Center" 
-                                Gap="10"
-                                Height="100" 
-                                Background="LightGray">
-                    <Button Content="Button 1" Padding="10,5"/>
-                    <Button Content="Button 2" Padding="10,5"/>
-                    <Button Content="Button 3" Padding="10,5"/>
+            <!--  Example 3: SpaceAround,Row,Center  -->
+            <GroupBox Margin="0,0,0,20" Header="SpaceAround,Row,Center">
+                <Flex:FlexPanel
+                    Height="100"
+                    AlignItems="Center"
+                    Background="LightGray"
+                    FlexDirection="Row"
+                    Gap="10"
+                    JustifyContent="SpaceAround">
+                    <Button Padding="10,5" Content="Button 1" />
+                    <Button Padding="10,5" Content="Button 2" />
+                    <Button Padding="10,5" Content="Button 3" />
                 </Flex:FlexPanel>
             </GroupBox>
-            <!-- Example 4:  FlexStart,Stretch,Row,FlexGrow -->
-            <GroupBox Header="FlexStart,Stretch,Row,FlexGrow" Margin="0,0,0,20">
-                <Flex:FlexPanel FlexDirection="Row" 
-                                JustifyContent="FlexStart" 
-                                AlignItems="Stretch" 
-                                Gap="10"
-                                Height="120" 
-                                Background="LightPink">
-                    <!-- Fixed width -->
-                    <Button Content="Fixed 100px" Flex:FlexPanel.FlexBasis="100" Flex:FlexPanel.FlexGrow="0" Flex:FlexPanel.FlexShrink="0"/>
+            <!--  Example 4:  FlexStart,Stretch,Row,FlexGrow  -->
+            <GroupBox Margin="0,0,0,20" Header="FlexStart,Stretch,Row,FlexGrow">
+                <Flex:FlexPanel
+                    Height="120"
+                    AlignItems="Stretch"
+                    Background="LightPink"
+                    FlexDirection="Row"
+                    Gap="10"
+                    JustifyContent="FlexStart">
+                    <!--  Fixed width  -->
+                    <Button
+                        Flex:FlexPanel.FlexBasis="100"
+                        Flex:FlexPanel.FlexGrow="0"
+                        Flex:FlexPanel.FlexShrink="0"
+                        Content="Fixed 100px" />
 
-                    <!-- Grows to fill space -->
-                    <Button Content="Flex Grow" Flex:FlexPanel.FlexGrow="1"/>
+                    <!--  Grows to fill space  -->
+                    <Button Flex:FlexPanel.FlexGrow="1" Content="Flex Grow" />
 
-                    <!-- Custom alignment -->
-                    <Button Content="Align Center" Flex:FlexPanel.AlignSelf="Center" MinHeight="50" />
+                    <!--  Custom alignment  -->
+                    <Button
+                        MinHeight="50"
+                        Flex:FlexPanel.AlignSelf="Center"
+                        Content="Align Center" />
 
-                    <!-- Takes twice as much space -->
-                    <Button Content="Flex Grow x2" Flex:FlexPanel.FlexGrow="2"/>
+                    <!--  Takes twice as much space  -->
+                    <Button Flex:FlexPanel.FlexGrow="2" Content="Flex Grow x2" />
                 </Flex:FlexPanel>
             </GroupBox>
 
-            <!-- Example 5: Column ,FlexStart,FlexGrow -->
-            <GroupBox Header="Column ,FlexStart,FlexGrow" Margin="0,0,0,20">
-                <Flex:FlexPanel FlexDirection="Column" 
-                                JustifyContent="FlexStart" 
-                                AlignItems="Stretch" 
-                                Gap="10"
-                                Height="180" 
-                                MaxHeight="200"
-                                MinHeight="200"
-                                Background="LightBlue">
-                    <Button Content="Fixed Height" Height="30"/>
-                    <Button Content="Flex Grow 1" Flex:FlexPanel.FlexGrow="1"/>
-                    <Button Content="Flex Grow 2" Flex:FlexPanel.FlexGrow="2"/>
-                    <Button Content="Fixed Height" Height="30"/>
+            <!--  Example 5: Column ,FlexStart,FlexGrow  -->
+            <GroupBox Margin="0,0,0,20" Header="Column ,FlexStart,FlexGrow">
+                <Flex:FlexPanel
+                    Height="180"
+                    MinHeight="200"
+                    MaxHeight="200"
+                    AlignItems="Stretch"
+                    Background="LightBlue"
+                    FlexDirection="Column"
+                    Gap="10"
+                    JustifyContent="FlexStart">
+                    <Button Height="30" Content="Fixed Height" />
+                    <Button Flex:FlexPanel.FlexGrow="1" Content="Flex Grow 1" />
+                    <Button Flex:FlexPanel.FlexGrow="2" Content="Flex Grow 2" />
+                    <Button Height="30" Content="Fixed Height" />
                 </Flex:FlexPanel>
             </GroupBox>
-            
-            
+
+
         </StackPanel>
     </ScrollViewer>
 </Window>
