@@ -13,5 +13,4 @@ namespace WpfFlexPanel.Enums
         Column,
         ColumnReverse
     }
-
 }
