@@ -8,11 +8,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("WpfFlexPanel")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("CSS Flexbox-inspired layout panel for WPF applications. Bringing web layout capabilities to desktop development.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Administrator")]
+[assembly: AssemblyCompany("KarimAbd-Elrazek")]
 [assembly: AssemblyProduct("WpfFlexPanel")]
-[assembly: AssemblyCopyright("Copyright © Administrator 2025")]
+[assembly: AssemblyCopyright("Copyright © KarimAbd-Elrazek 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

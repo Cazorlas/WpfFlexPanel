@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<authors>Karimabd-elrazek, Cazorlas</authors>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<license type="expression">MIT</license>
+		<readme>README.md</readme>
+		<icon>logo.png</icon>
+		<projectUrl>https://github.com/Cazorlas/WpfFlexPanel</projectUrl>
+		<description>$description$</description>
+		<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+		<copyright>$copyright$</copyright>
+		<tags>wpf flex flexPanel</tags>
+	</metadata>
+	<files>
+		<file src="logo.png" target=""/>
+		<file src="README.md" target=""/>
+	</files>
+</package>
